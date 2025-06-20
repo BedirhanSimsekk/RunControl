@@ -34,9 +34,10 @@ public class Character : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "x2" || other.name == "+3" || other.name == "-4" || other.name == "/2")
+        if (other.CompareTag("Carpma") || other.CompareTag("Toplama") || other.CompareTag("Bolme") || other.CompareTag("Cýkartma"))
         {
-            _GameManager.KarakterYönetimi(other.name,other.transform);
+            int sayi = int.Parse(other.name);
+            _GameManager.KarakterYönetimi(other.tag,sayi,other.transform);
 
         }
     }

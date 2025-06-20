@@ -23,7 +23,7 @@ public class AICharacter : MonoBehaviour
     {
         if (other.CompareTag("igneliKutu"))
         {
-            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().AnlikKarakterSayisi--;
+            GameManager.AnlikKarakterSayisi--;
             gameObject.SetActive(false);
         }
     }
