@@ -37,7 +37,7 @@ public class Character : MonoBehaviour
         if (other.CompareTag("Carpma") || other.CompareTag("Toplama") || other.CompareTag("Bolme") || other.CompareTag("Cýkartma"))
         {
             int sayi = int.Parse(other.name);
-            _GameManager.KarakterYönetimi(other.tag,sayi,other.transform);
+            _GameManager.KarakterYonetimi(other.tag,sayi,other.transform);
 
         }
     }

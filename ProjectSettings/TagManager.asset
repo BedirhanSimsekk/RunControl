@@ -10,6 +10,7 @@ TagManager:
   - Toplama
   - Bolme
   - "C\u0131kartma"
+  - TestereDisli
   layers:
   - Default
   - TransparentFX

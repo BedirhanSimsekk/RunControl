@@ -6,7 +6,7 @@ namespace Bedirhan
 {
     public class Matematiksel_islemler : MonoBehaviour
     {
-        public static void Carpma(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon)
+        public static void Carpma(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
         {
             int DonguSayisi = (GameManager.AnlikKarakterSayisi * GelenSayi) - GameManager.AnlikKarakterSayisi;
             int sayi = 0;
@@ -16,6 +16,17 @@ namespace Bedirhan
                 {
                     if (!item.activeInHierarchy)
                     {
+                        foreach (var item2 in OlusmaEfektleri)
+                        {
+                            if (!item2.activeInHierarchy)
+                            {
+                                item2.SetActive(true);
+                                item2.transform.position = new Vector3(Pozisyon.position.x,
+                            Pozisyon.position.y, Pozisyon.position.z - 0.5f);
+                                item2.GetComponent<ParticleSystem>().Play();
+                                break;
+                            }
+                        }
                         // Bu þekilde de yapabilirsiniz:
                         item.transform.position = new Vector3(Pozisyon.position.x,
                             Pozisyon.position.y, Pozisyon.position.z - 0.5f);
@@ -32,7 +43,7 @@ namespace Bedirhan
             GameManager.AnlikKarakterSayisi *= GelenSayi;
         }
 
-        public static void Toplama(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon)
+        public static void Toplama(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
         {
             int sayi2 = 0;
             foreach (var item in Karakterler)
@@ -41,6 +52,17 @@ namespace Bedirhan
                 {
                     if (!item.activeInHierarchy)
                     {
+                        foreach (var item2 in OlusmaEfektleri)
+                        {
+                            if (!item2.activeInHierarchy)
+                            {
+                                item2.SetActive(true);
+                                item2.transform.position = new Vector3(Pozisyon.position.x,
+                            Pozisyon.position.y, Pozisyon.position.z - 0.5f);
+                                item2.GetComponent<ParticleSystem>().Play();
+                                break;
+                            }
+                        }
                         item.transform.position = new Vector3(Pozisyon.position.x,
                             Pozisyon.position.y, Pozisyon.position.z - 0.5f);
                         item.SetActive(true);
@@ -56,12 +78,24 @@ namespace Bedirhan
             GameManager.AnlikKarakterSayisi += GelenSayi;
         }
 
-        public static void Cýkartma(int GelenSayi, List<GameObject> Karakterler)
+        public static void Cýkartma(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
         {
             if (GameManager.AnlikKarakterSayisi <= GelenSayi)
             {
                 foreach (var item in Karakterler)
                 {
+                    foreach(var item2 in YokOlmaEfektleri)
+                    {
+                        if (!item2.activeInHierarchy)
+                        {
+                            item2.SetActive(true);
+                            item2.transform.position = new Vector3(Pozisyon.position.x,
+                                0.23f, Pozisyon.position.z);
+                            item2.GetComponent<ParticleSystem>().Play();
+                            break;
+                        }
+                    }
+
                     // Bu þekilde de yapabilirsiniz:
                     item.transform.position = Vector3.zero;
                     item.SetActive(false);
@@ -77,6 +111,18 @@ namespace Bedirhan
                     {
                         if (item.activeInHierarchy)
                         {
+                            foreach (var item2 in YokOlmaEfektleri)
+                            {
+                                if (!item2.activeInHierarchy)
+                                {
+                                    item2.SetActive(true);
+                                    item2.transform.position = new Vector3(Pozisyon.position.x,
+                                        0.23f, Pozisyon.position.z);
+                                    item2.GetComponent<ParticleSystem>().Play();
+                                    break;
+                                }
+                            }
+
                             // Bu þekilde de yapabilirsiniz:
                             item.transform.position = Vector3.zero;
                             item.SetActive(false);
@@ -89,16 +135,27 @@ namespace Bedirhan
                         break;
                     }
                 }
-                GameManager.AnlikKarakterSayisi -= 4;
+                GameManager.AnlikKarakterSayisi -= GelenSayi;
             }
         }
 
-        public static void Bolme(int GelenSayi, List<GameObject> Karakterler)
+        public static void Bolme(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
         {
             if (GameManager.AnlikKarakterSayisi <= GelenSayi)
             {
                 foreach (var item in Karakterler)
                 {
+                    foreach (var item2 in YokOlmaEfektleri)
+                    {
+                        if (!item2.activeInHierarchy)
+                        {
+                            item2.SetActive(true);
+                            item2.transform.position = new Vector3(Pozisyon.position.x,
+                                            0.23f, Pozisyon.position.z);
+                            item2.GetComponent<ParticleSystem>().Play();
+                            break;
+                        }
+                    }
                     item.transform.position = Vector3.zero;
                     item.SetActive(false);
                 }
@@ -117,6 +174,17 @@ namespace Bedirhan
 
                     if (item.activeInHierarchy)
                     {
+                        foreach (var item2 in YokOlmaEfektleri)
+                        {
+                            if (!item2.activeInHierarchy)
+                            {
+                                item2.SetActive(true);
+                                item2.transform.position = new Vector3(Pozisyon.position.x,
+                                                0.23f, Pozisyon.position.z);
+                                item2.GetComponent<ParticleSystem>().Play();
+                                break;
+                            }
+                        }
                         item.transform.position = Vector3.zero;
                         item.SetActive(false);
                         sayac++;
