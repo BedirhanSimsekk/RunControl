@@ -11,6 +11,8 @@ TagManager:
   - Bolme
   - "C\u0131kartma"
   - TestereDisli
+  - AIKarakter
+  - Balyoz
   layers:
   - Default
   - TransparentFX

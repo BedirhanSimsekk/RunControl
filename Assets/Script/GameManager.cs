@@ -10,13 +10,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> Karakterler;
     public List<GameObject> OlusmaEfektleri;
     public List<GameObject> YokOlmaEfektleri;
+    public List<GameObject> AdamLekeleri;
     void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
     {
 
     }
@@ -56,6 +51,36 @@ public class GameManager : MonoBehaviour
                 AnlikKarakterSayisi--;
                 break;
             }
+        }
+    }
+    public void LekeOlustur(Transform pozisyon)
+    {
+        StartCoroutine(AdamLekesiOlusturma(pozisyon));
+    }
+    public IEnumerator AdamLekesiOlusturma(Transform Pozisyon)
+    {
+        GameObject aktifLeke = null;
+
+        // Boþ leke bul ve aktif et
+        foreach (var item in AdamLekeleri)
+        {
+            if (!item.activeInHierarchy)
+            {
+                item.SetActive(true);
+                item.transform.position = new Vector3(Pozisyon.position.x, 0.005f, Pozisyon.position.z);
+                aktifLeke = item; // Hangi lekeyi açtýðýmýzý hatýrla
+                AnlikKarakterSayisi--;
+                break;
+            }
+        }
+
+        // 5 saniye bekle
+        yield return new WaitForSeconds(5f);
+
+        // Sadece bu lekeyi kapat
+        if (aktifLeke != null)
+        {
+            aktifLeke.SetActive(false);
         }
     }
 }

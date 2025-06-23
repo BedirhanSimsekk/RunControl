@@ -31,5 +31,10 @@ public class AICharacter : MonoBehaviour
             GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform);
             gameObject.SetActive(false);
         }
+        if (other.CompareTag("Balyoz"))
+        {
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().LekeOlustur(transform);
+            gameObject.SetActive(false);
+        }
     }
 }
