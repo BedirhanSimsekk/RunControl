@@ -23,12 +23,12 @@ public class AICharacter : MonoBehaviour
     {
         if (other.CompareTag("igneliKutu"))
         {
-            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform);
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform,true);
             gameObject.SetActive(false);
         }
         if (other.CompareTag("TestereDisli"))
         {
-            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform);
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform,true);
             gameObject.SetActive(false);
         }
         if (other.CompareTag("Balyoz"))
@@ -36,5 +36,11 @@ public class AICharacter : MonoBehaviour
             GameObject.FindWithTag("GameManager").GetComponent<GameManager>().LekeOlustur(transform);
             gameObject.SetActive(false);
         }
+        if (other.CompareTag("Dusman"))
+        {
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform, true);
+            gameObject.SetActive(false);
+        }
+
     }
 }
