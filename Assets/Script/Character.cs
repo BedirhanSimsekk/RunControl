@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
     public float moveSpeed = 1f; // Yan hareket hýzý
     public GameManager _GameManager;
-    public GameObject _Kamera;
+    public CameraManager _Kamera;
     public bool SonaGeldikmi;
     public GameObject GidecegiYer;
+    public Slider _Slider;
+    public GameObject GecisNoktasý;
     void Start()
     {
+        float Mesafe = Vector3.Distance(transform.position, GidecegiYer.transform.position);
+        _Slider.maxValue = Mesafe;
     }
 
     private void FixedUpdate()
@@ -24,9 +29,14 @@ public class Character : MonoBehaviour
         if (SonaGeldikmi)
         {
             transform.position = Vector3.Lerp(transform.position, GidecegiYer.transform.position, .008f);
+            if(_Slider.value != 0)
+                _Slider.value -= .008f;
+            
         }
         else
         {
+            float Mesafe = Vector3.Distance(transform.position, GidecegiYer.transform.position);
+            _Slider.value = Mesafe;
             if (Input.GetMouseButton(0)) // Basýlý tutma
             {
                 float mouseX = Input.mousePosition.x - Screen.width / 2;
@@ -55,8 +65,48 @@ public class Character : MonoBehaviour
         else if ((other.CompareTag("SonTetikleyici")))
         {
             _GameManager.DusmanlariTetikle();
-            _Kamera.GetComponent<CameraManager>().SonaGeldikmi = true;
+            _Kamera.SonaGeldikmi = true;
             SonaGeldikmi = true;
+        }
+        else if ((other.CompareTag("BosKarakter")))
+        {
+            _GameManager.Karakterler.Add(other.gameObject);
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        float lerpSpeed = 12f; // Bu deðeri ayarlayarak hýzý kontrol edebilirsin
+        Vector3 targetPosition = transform.position;
+
+        if (collision.gameObject.CompareTag("Direk"))
+        {
+            if (transform.position.x < 0)
+                targetPosition = new Vector3(transform.position.x + .1f, transform.position.y, transform.position.z);
+            else
+                targetPosition = new Vector3(transform.position.x - .1f, transform.position.y, transform.position.z);
+
+            transform.position = Vector3.Lerp(transform.position, targetPosition, lerpSpeed * Time.deltaTime);
+        }
+
+        if (collision.gameObject.CompareTag("igneliKutu"))
+        {
+            if (transform.position.x < 0)
+                targetPosition = new Vector3(transform.position.x + .05f, transform.position.y, transform.position.z);
+            else
+                targetPosition = new Vector3(transform.position.x - .05f, transform.position.y, transform.position.z);
+
+            transform.position = Vector3.Lerp(transform.position, targetPosition, lerpSpeed * Time.deltaTime);
+        }
+
+        if (collision.gameObject.CompareTag("OrtaDirek"))
+        {
+            if (transform.position.x < 0)
+                targetPosition = new Vector3(transform.position.x - .1f, transform.position.y, transform.position.z);
+            else
+                targetPosition = new Vector3(transform.position.x + .1f, transform.position.y, transform.position.z);
+
+            transform.position = Vector3.Lerp(transform.position, targetPosition, lerpSpeed * Time.deltaTime);
         }
     }
 }

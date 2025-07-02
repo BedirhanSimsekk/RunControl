@@ -5,15 +5,14 @@ using UnityEngine.AI;
 
 public class AICharacter : MonoBehaviour
 {
-    GameObject Target;
     NavMeshAgent _Navmesh;
+    public GameManager _GameManager;
+    public GameObject Target;
     void Start()
     {
         _Navmesh = GetComponent<NavMeshAgent>();
-        Target = GameObject.FindWithTag("GameManager").GetComponent<GameManager>().VarisNoktasi;
+        Target = _GameManager.VarisNoktasi;
     }
-
-    // Update is called once per frame
     void LateUpdate()
     {
         _Navmesh.SetDestination(Target.transform.position);
@@ -23,24 +22,27 @@ public class AICharacter : MonoBehaviour
     {
         if (other.CompareTag("igneliKutu"))
         {
-            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform,true);
+            _GameManager.YokOlmaEfektiOlusturma(transform,true);
             gameObject.SetActive(false);
         }
-        if (other.CompareTag("TestereDisli"))
+        else if (other.CompareTag("TestereDisli"))
         {
-            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform,true);
+            _GameManager.YokOlmaEfektiOlusturma(transform,true);
             gameObject.SetActive(false);
         }
-        if (other.CompareTag("Balyoz"))
+        else if (other.CompareTag("Balyoz"))
         {
-            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().LekeOlustur(transform);
+            _GameManager.LekeOlustur(transform);
             gameObject.SetActive(false);
         }
-        if (other.CompareTag("Dusman"))
+        else if (other.CompareTag("Dusman"))
         {
-            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform, true);
+            _GameManager.YokOlmaEfektiOlusturma(transform, true);
             gameObject.SetActive(false);
         }
-
+        else if ((other.CompareTag("BosKarakter")))
+        {
+            _GameManager.Karakterler.Add(other.gameObject);
+        }
     }
 }

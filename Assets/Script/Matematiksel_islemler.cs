@@ -24,6 +24,7 @@ namespace Bedirhan
                                 item2.transform.position = new Vector3(Pozisyon.position.x,
                             Pozisyon.position.y, Pozisyon.position.z - 0.5f);
                                 item2.GetComponent<ParticleSystem>().Play();
+                                item2.GetComponent<AudioSource>().Play();
                                 break;
                             }
                         }
@@ -60,6 +61,7 @@ namespace Bedirhan
                                 item2.transform.position = new Vector3(Pozisyon.position.x,
                             Pozisyon.position.y, Pozisyon.position.z - 0.5f);
                                 item2.GetComponent<ParticleSystem>().Play();
+                                item2.GetComponent<AudioSource>().Play();
                                 break;
                             }
                         }
@@ -92,6 +94,7 @@ namespace Bedirhan
                             item2.transform.position = new Vector3(Pozisyon.position.x,
                                 0.23f, Pozisyon.position.z);
                             item2.GetComponent<ParticleSystem>().Play();
+                            item2.GetComponent<AudioSource>().Play();
                             break;
                         }
                     }
@@ -119,6 +122,7 @@ namespace Bedirhan
                                     item2.transform.position = new Vector3(Pozisyon.position.x,
                                         0.23f, Pozisyon.position.z);
                                     item2.GetComponent<ParticleSystem>().Play();
+                                    item2.GetComponent<AudioSource>().Play();
                                     break;
                                 }
                             }
@@ -153,6 +157,7 @@ namespace Bedirhan
                             item2.transform.position = new Vector3(Pozisyon.position.x,
                                             0.23f, Pozisyon.position.z);
                             item2.GetComponent<ParticleSystem>().Play();
+                            item.GetComponent<AudioSource>().Play();
                             break;
                         }
                     }
@@ -182,6 +187,7 @@ namespace Bedirhan
                                 item2.transform.position = new Vector3(Pozisyon.position.x,
                                                 0.23f, Pozisyon.position.z);
                                 item2.GetComponent<ParticleSystem>().Play();
+                                item2.GetComponent<AudioSource>().Play();
                                 break;
                             }
                         }

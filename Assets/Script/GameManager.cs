@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Bedirhan;
+using static UnityEditor.Progress;
 public class GameManager : MonoBehaviour
 {
     public GameObject VarisNoktasi;
@@ -11,12 +12,14 @@ public class GameManager : MonoBehaviour
     public List<GameObject> OlusmaEfektleri;
     public List<GameObject> YokOlmaEfektleri;
     public List<GameObject> AdamLekeleri;
+    public List<GameObject> BosKarakter;
 
     [Header("LEVEL VERÝLERÝ")]
     public List<GameObject> Dusmanlar;
     public int KacDusmanOlsun;
     public GameObject _AnaKarakter;
     public bool OyunBittimi;
+    bool SonaGeldikmi;
     void Start()
     {
         DusmanlariOlustur();
@@ -39,6 +42,8 @@ public class GameManager : MonoBehaviour
                 item.GetComponent<Dusman>().AnimasyonTetikle();
             }
         }
+        SonaGeldikmi = true;
+        SavasDurumu();
     }
 
     public void KarakterYonetimi(string islemturu, int GelenSayi, Transform Pozisyon)
@@ -64,33 +69,44 @@ public class GameManager : MonoBehaviour
     }
     void SavasDurumu()
     {
-        if(AnlikKarakterSayisi == 1 || KacDusmanOlsun == 0)
+        if (SonaGeldikmi)
         {
-            OyunBittimi = true;
-            foreach(var item in Dusmanlar)
+            if (AnlikKarakterSayisi == 1 || KacDusmanOlsun == 0)
             {
-                if (item.activeInHierarchy)
+                OyunBittimi = true;
+                foreach (var item in Dusmanlar)
                 {
-                    item.GetComponent<Animator>().SetBool("Saldir", false);
+                    if (item.activeInHierarchy)
+                    {
+                        item.GetComponent<Animator>().SetBool("Saldir", false);
+                    }
                 }
-            }
-            foreach (var item in Karakterler)
-            {
-                if (item.activeInHierarchy)
+                foreach (var item in BosKarakter)
                 {
-                    item.GetComponent<Animator>().SetBool("Saldir", false);
+                    if (item.activeInHierarchy)
+                    {
+                        item.GetComponent<Animator>().SetBool("TemasVar", false);
+                    }
                 }
-            }
-            _AnaKarakter.GetComponent<Animator>().SetBool("Saldir", false);
-            if (AnlikKarakterSayisi < KacDusmanOlsun || AnlikKarakterSayisi == KacDusmanOlsun)
-            {
-                Debug.Log("Kaybettin");
-            }
-            else
-            {
-                Debug.Log("Kazandýn");
+                foreach (var item in Karakterler)
+                {
+                    if (item.activeInHierarchy)
+                    {
+                        item.GetComponent<Animator>().SetBool("Saldir", false);
+                    }
+                }
+                _AnaKarakter.GetComponent<Animator>().SetBool("Saldir", false);
+                if (AnlikKarakterSayisi < KacDusmanOlsun || AnlikKarakterSayisi == KacDusmanOlsun)
+                {
+                    Debug.Log("Kaybettin");
+                }
+                else
+                {
+                    Debug.Log("Kazandýn");
+                }
             }
         }
+        
     }
     public void YokOlmaEfektiOlusturma(Transform Pozisyon,bool KisiDurumu)
     {
@@ -102,6 +118,7 @@ public class GameManager : MonoBehaviour
                 item.transform.position = new Vector3(Pozisyon.position.x,
                                 0.23f, Pozisyon.position.z);
                 item.GetComponent<ParticleSystem>().Play();
+                item.GetComponent<AudioSource>().Play();
                 if (KisiDurumu)
                     AnlikKarakterSayisi--;
                 else
@@ -127,6 +144,7 @@ public class GameManager : MonoBehaviour
             {
                 item.SetActive(true);
                 item.transform.position = new Vector3(Pozisyon.position.x, 0.005f, Pozisyon.position.z);
+                item.GetComponent<AudioSource>().Play();
                 aktifLeke = item; // Hangi lekeyi açtýðýmýzý hatýrla
                 AnlikKarakterSayisi--;
                 break;

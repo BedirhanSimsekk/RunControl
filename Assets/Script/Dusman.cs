@@ -9,6 +9,7 @@ public class Dusman : MonoBehaviour
     NavMeshAgent _NavMesh;
     Animator _Animator;
     bool Saldiri_Basladimi;
+    public GameManager _GameManager;
     void Start()
     {
         _NavMesh = GetComponent<NavMeshAgent>();
@@ -30,7 +31,7 @@ public class Dusman : MonoBehaviour
     {
         if(other.CompareTag("AIKarakter"))
         {
-            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokOlmaEfektiOlusturma(transform, false);
+            _GameManager.YokOlmaEfektiOlusturma(transform, false);
             gameObject.SetActive(false);
         }
     }
