@@ -286168,6 +286168,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Say\u0131salBlok(-,/)"
       objectReference: {fileID: 0}
+    - target: {fileID: 3479777971758629455, guid: 4724746b85ee1574faeebc560e97bfec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4372273807571409000, guid: 4724746b85ee1574faeebc560e97bfec, type: 3}
       propertyPath: m_Camera
       value: 

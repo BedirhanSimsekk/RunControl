@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Bedirhan
 {
-    public class Matematiksel_islemler : MonoBehaviour
+    public class Matematiksel_islemler 
     {
-        public static void Carpma(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
+        public  void Carpma(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
         {
             int DonguSayisi = (GameManager.AnlikKarakterSayisi * GelenSayi) - GameManager.AnlikKarakterSayisi;
             int sayi = 0;
@@ -44,7 +44,7 @@ namespace Bedirhan
             GameManager.AnlikKarakterSayisi *= GelenSayi;
         }
 
-        public static void Toplama(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
+        public  void Toplama(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
         {
             int sayi2 = 0;
             foreach (var item in Karakterler)
@@ -80,7 +80,7 @@ namespace Bedirhan
             GameManager.AnlikKarakterSayisi += GelenSayi;
         }
 
-        public static void Cýkartma(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
+        public  void Cýkartma(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
         {
             if (GameManager.AnlikKarakterSayisi <= GelenSayi)
             {
@@ -143,7 +143,7 @@ namespace Bedirhan
             }
         }
 
-        public static void Bolme(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
+        public  void Bolme(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
         {
             if (GameManager.AnlikKarakterSayisi <= GelenSayi)
             {
@@ -157,7 +157,7 @@ namespace Bedirhan
                             item2.transform.position = new Vector3(Pozisyon.position.x,
                                             0.23f, Pozisyon.position.z);
                             item2.GetComponent<ParticleSystem>().Play();
-                            item.GetComponent<AudioSource>().Play();
+                            item2.GetComponent<AudioSource>().Play();
                             break;
                         }
                     }
@@ -200,6 +200,47 @@ namespace Bedirhan
                 GameManager.AnlikKarakterSayisi = kalacakSayi;
             }
         }
+    }
+
+    public class BellekYonetimi
+    {
+        public void VeriKaydet_s(string Key,string value)
+        {
+            PlayerPrefs.SetString(Key, value);
+            PlayerPrefs.Save();
+        }
+        public void VeriKaydet_i(string Key, int value)
+        {
+            PlayerPrefs.SetInt(Key, value);
+            PlayerPrefs.Save();
+        }
+        public void VeriKaydet_f(string Key, float value)
+        {
+            PlayerPrefs.SetFloat(Key, value);
+            PlayerPrefs.Save();
+        }
+
+        public string VeriOku_s(string Key)
+        {
+            return PlayerPrefs.GetString(Key);
+        }
+        public int VeriOku_i(string Key)
+        {
+            return PlayerPrefs.GetInt(Key);
+        }
+        public float VeriOku_f(string Key)
+        {
+            return PlayerPrefs.GetFloat(Key);
+        }
+
+        public void KontrolEtveTanimla()
+        {
+            if (!PlayerPrefs.HasKey("SonLevel"))
+            {
+                VeriKaydet_i("SonLevel", 5);
+            }
+        }
+
     }
 }
 

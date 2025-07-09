@@ -30,7 +30,7 @@ public class Character : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, GidecegiYer.transform.position, .008f);
             if(_Slider.value != 0)
-                _Slider.value -= .008f;
+                _Slider.value -= .01f;
             
         }
         else
