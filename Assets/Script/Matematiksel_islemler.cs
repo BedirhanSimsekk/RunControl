@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Bedirhan
 {
-    public class Matematiksel_islemler 
+    public class Matematiksel_islemler
     {
-        public  void Carpma(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
+        public void Carpma(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
         {
             int DonguSayisi = (GameManager.AnlikKarakterSayisi * GelenSayi) - GameManager.AnlikKarakterSayisi;
             int sayi = 0;
@@ -44,7 +45,7 @@ namespace Bedirhan
             GameManager.AnlikKarakterSayisi *= GelenSayi;
         }
 
-        public  void Toplama(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
+        public void Toplama(int GelenSayi, List<GameObject> Karakterler, Transform Pozisyon, List<GameObject> OlusmaEfektleri)
         {
             int sayi2 = 0;
             foreach (var item in Karakterler)
@@ -80,13 +81,13 @@ namespace Bedirhan
             GameManager.AnlikKarakterSayisi += GelenSayi;
         }
 
-        public  void Cýkartma(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
+        public void Cýkartma(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
         {
             if (GameManager.AnlikKarakterSayisi <= GelenSayi)
             {
                 foreach (var item in Karakterler)
                 {
-                    foreach(var item2 in YokOlmaEfektleri)
+                    foreach (var item2 in YokOlmaEfektleri)
                     {
                         if (!item2.activeInHierarchy)
                         {
@@ -143,7 +144,7 @@ namespace Bedirhan
             }
         }
 
-        public  void Bolme(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
+        public void Bolme(int GelenSayi, List<GameObject> Karakterler, List<GameObject> YokOlmaEfektleri, Transform Pozisyon)
         {
             if (GameManager.AnlikKarakterSayisi <= GelenSayi)
             {
@@ -204,7 +205,7 @@ namespace Bedirhan
 
     public class BellekYonetimi
     {
-        public void VeriKaydet_s(string Key,string value)
+        public void VeriKaydet_s(string Key, string value)
         {
             PlayerPrefs.SetString(Key, value);
             PlayerPrefs.Save();
@@ -241,6 +242,20 @@ namespace Bedirhan
             }
         }
 
+    }
+
+    public class Verilerimiz
+    {
+        public static List<ItemBilgileri> ItemBilgileri = new List<ItemBilgileri>();
+    }
+    [Serializable]
+    public class ItemBilgileri
+    {
+        public int GrupIndex;
+        public int Item_Index;
+        public string Item_Ad;
+        public int Puan;
+        public bool SatinAlmaDurumu;
     }
 }
 
